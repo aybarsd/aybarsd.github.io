@@ -70,15 +70,15 @@
     }
 
     .content {
-  display: flex;
-  align-items: flex-start; /* Keep the items aligned at the top */
-  margin: 140px auto 0;
-  max-width: 800px;
-  padding: 20px;
-  background-color: var(--header-bg);
-  box-shadow: 0 2px 4px var(--box-shadow);
-  border-radius: 8px;
-}
+      display: flex;
+      align-items: flex-start;
+      margin: 140px auto 0;
+      max-width: 800px;
+      padding: 20px;
+      background-color: var(--header-bg);
+      box-shadow: 0 2px 4px var(--box-shadow);
+      border-radius: 8px;
+    }
 
     .content_decons {
       display: flex;
@@ -105,12 +105,11 @@
     }
 
     .content img {
-  max-width: 150px;
-  margin-right: 20px;
-  border-radius: 8px;
-  align-self: flex-start; /* Align the image to the top */
-  margin-top: 0; /* Remove any extra vertical margin */
-}
+      max-width: 150px;
+      margin-right: 20px;
+      border-radius: 8px;
+      align-self: flex-start;
+    }
 
     .content .text {
       flex: 1;
@@ -129,7 +128,8 @@
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0); /* Start small */
+      transform-origin: center;
       width: 80%;
       max-width: 500px;
       background-color: var(--header-bg);
@@ -137,6 +137,12 @@
       border-radius: 8px;
       z-index: 1000;
       padding: 20px;
+      transition: transform 0.3s ease-in-out; /* Smooth scaling animation */
+    }
+
+    .modal.show {
+      display: block;
+      transform: translate(-50%, -50%) scale(1); /* Full size */
     }
 
     .modal h2 {
@@ -167,6 +173,10 @@
       background: rgba(0, 0, 0, 0.5);
       z-index: 999;
     }
+
+    .overlay.show {
+      display: block;
+    }
   </style>
 </head>
 
@@ -188,9 +198,9 @@
     <div class="text">
       <p class="section-title">🧨 Deconstruction</p>
       <ul>
-        <li><a onclick="openModal('Royal Match Live Ops Event Deconstruction', 'This is the content for Royal Match Live Ops Event Deconstruction.')">Royal Match Live Ops Event Deconstruction</a></li>
-        <li><a onclick="openModal('Merge Mansion Strategy Breakdown', 'This is the content for Merge Mansion Strategy Breakdown.')">Merge Mansion Strategy Breakdown</a></li>
-        <li><a onclick="openModal('Clash of Clans Economy Analysis', 'This is the content for Clash of Clans Economy Analysis.')">Clash of Clans Economy Analysis</a></li>
+        <li><a onclick="openModal('XX Live Ops Event Deconstruction', 'This is the content for Royal Match Live Ops Event Deconstruction.')">Royal Match Live Ops Event Deconstruction</a></li>
+        <li><a onclick="openModal('XX Strategy Breakdown', 'This is the content for Merge Mansion Strategy Breakdown.')">Merge Mansion Strategy Breakdown</a></li>
+        <li><a onclick="openModal('XX Economy Analysis', 'This is the content for Clash of Clans Economy Analysis.')">Clash of Clans Economy Analysis</a></li>
       </ul>
     </div>
   </div>
@@ -215,42 +225,43 @@
   </div>
 
   <script>
-function toggleTheme() {
-  const root = document.documentElement;
-  const button = document.querySelector('.theme-switch');
+    function toggleTheme() {
+      const root = document.documentElement;
+      const button = document.querySelector('.theme-switch');
 
-  // Get the current background color from the computed style
-  const currentBgColor = getComputedStyle(root).getPropertyValue('--bg-color').trim();
+      if (root.style.getPropertyValue('--bg-color') === '#f4f4f4') {
+        root.style.setProperty('--bg-color', '#121212');
+        root.style.setProperty('--text-color', '#ffffff');
+        root.style.setProperty('--header-bg', '#1e1e1e');
+        root.style.setProperty('--link-color', '#bb86fc');
+        root.style.setProperty('--box-shadow', 'rgba(0, 0, 0, 0.5)');
+        root.style.setProperty('--button-text-color', '#ffffff');
+        button.innerText = 'Toggle Light Mode';
+      } else {
+        root.style.setProperty('--bg-color', '#f4f4f4');
+        root.style.setProperty('--text-color', '#000000');
+        root.style.setProperty('--header-bg', '#ffffff');
+        root.style.setProperty('--link-color', '#0073b1');
+        root.style.setProperty('--box-shadow', 'rgba(0, 0, 0, 0.1)');
+        root.style.setProperty('--button-text-color', '#000000');
+        button.innerText = 'Toggle Dark Mode';
+      }
+    }
 
-  if (currentBgColor === '#f4f4f4') {
-    root.style.setProperty('--bg-color', '#121212');
-    root.style.setProperty('--text-color', '#ffffff');
-    root.style.setProperty('--header-bg', '#1e1e1e');
-    root.style.setProperty('--link-color', '#bb86fc');
-    root.style.setProperty('--box-shadow', 'rgba(0, 0, 0, 0.5)');
-    root.style.setProperty('--button-text-color', '#ffffff');
-    button.innerText = 'Toggle Light Mode';
-  } else {
-    root.style.setProperty('--bg-color', '#f4f4f4');
-    root.style.setProperty('--text-color', '#000000');
-    root.style.setProperty('--header-bg', '#ffffff');
-    root.style.setProperty('--link-color', '#0073b1');
-    root.style.setProperty('--box-shadow', 'rgba(0, 0, 0, 0.1)');
-    root.style.setProperty('--button-text-color', '#000000');
-    button.innerText = 'Toggle Dark Mode';
-  }
-}
-    
     function openModal(title, content) {
+      const modal = document.getElementById('modal');
+      const overlay = document.getElementById('overlay');
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-content').innerText = content;
-      document.getElementById('modal').style.display = 'block';
-      document.getElementById('overlay').style.display = 'block';
+      modal.classList.add('show');
+      overlay.classList.add('show');
     }
 
     function closeModal() {
-      document.getElementById('modal').style.display = 'none';
-      document.getElementById('overlay').style.display = 'none';
+      const modal = document.getElementById('modal');
+      const overlay = document.getElementById('overlay');
+      modal.classList.remove('show');
+      overlay.classList.remove('show');
     }
   </script>
 </body>
