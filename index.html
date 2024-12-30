@@ -54,26 +54,31 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
     }
+
     .content_decons {
-    display: flex;
-    align-items: flex-start;
-    margin: 10px auto 0;
-    max-width: 800px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 10px auto 0;
+      max-width: 800px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
     }
+
     .content_books {
-    display: flex;
-    align-items: flex-start;
-    margin: 10px auto 0;
-    max-width: 800px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 10px auto 0;
+      max-width: 800px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
     }
+
     .content img {
       max-width: 150px;
       margin-right: 20px;
@@ -90,39 +95,111 @@
       margin-bottom: 5px;
       text-decoration: underline;
     }
+
+    /* Modal styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 500px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
+    .modal p {
+      margin: 15px 0 0;
+    }
+
+    .modal .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: #0073b1;
+    }
+
+    /* Overlay */
+    .overlay {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
   </style>
 </head>
 
 <body>
   <div class="header">
     <h1>AYBARS DOKER</h1>
-    <p><a href="mailto:aybarsdoker@gmail.com">aybarsdoker@gmail.com</a> | <a
-        href="https://www.linkedin.com/in/aybarsdoker" target="_blank">linkedin.com/in/aybarsdoker</a></p>
+    <p><a href="mailto:aybarsdoker@gmail.com">aybarsdoker@gmail.com</a> | <a href="https://www.linkedin.com/in/aybarsdoker" target="_blank">linkedin.com/in/aybarsdoker</a></p>
   </div>
   <div class="content">
     <img src="1721903822189.jpeg" alt="Professional Photo">
     <div class="text">
-
-      <p>Hi, I’m Aybars. I’m a Mobile Game Producer with a degree in Electronics Engineering and 8 years of experience in product management. For the past 4 years, I’ve been focusing on the mobile gaming industry, striving to create fun and innovative experiences in the F2P world that are easily accessible to players worldwide.</br>
-    </br>
-Personally, I’m someone who plays games whenever I get the chance. Thanks to my “professional deformation”, I often end up analyzing some games from an industry perspective rather than just enjoying them. On this page, I’d like to share my observations. These will be entirely subjective and based on my personal experiences.</p>
-     
+      <p>Hi, I’m Aybars. I’m a Mobile Game Producer with a degree in Electronics Engineering and 8 years of experience in product management. For the past 4 years, I’ve been focusing on the mobile gaming industry, striving to create fun and innovative experiences in the F2P world that are easily accessible to players worldwide.</p>
+      <p>Personally, I’m someone who plays games whenever I get the chance. Thanks to my “professional deformation”, I often end up analyzing some games from an industry perspective rather than just enjoying them. On this page, I’d like to share my observations. These will be entirely subjective and based on my personal experiences.</p>
     </div>
   </div>
-  
+
   <div class="content_decons">
     <div class="text">
-      <p class="section-title">Deconstructions</p>
-      <p>Under deconstruction.. :) ETA unknown..</p>
-      
+      <p class="section-title">🧨 Deconstruction</p>
+      <ul>
+        <li><a onclick="openModal('XX LiveOps Event Deconstruction', 'This is the content for XX.')">XX</a></li>
+        <li><a onclick="openModal('XX LiveOps Strategy Breakdown', 'This is the content for XX.')">XX</a></li>
+        <li><a onclick="openModal('XX Economy Analysis', 'This is the content for XX.')">XX</a></li>
+      </ul>
     </div>
-</div>
-    <div class="content_books">
-      <div class="text">
-        <p class="section-title">Books</p>
-        <p>Maybe tomorrow maybe sooner than tomorrow</p>
-       
-      </div>
+  </div>
+
+  <div id="modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modal-title"></h2>
+    <p id="modal-content"></p>
+  </div>
+
+  <div id="overlay" class="overlay" onclick="closeModal()"></div>
+
+  <div class="content_books">
+    <div class="text">
+      <p class="section-title">📚 Books</p>
+      <ul>
+        <li><a onclick="openModal('Outliers by Malcolm Gladwell', 'A detailed analysis of success stories and what makes individuals stand out.')">Outliers by Malcolm Gladwell</a></li>
+        <li><a onclick="openModal('Sapiens by Yuval Noah Harari', 'A brief history of humankind, exploring our past and evolution.')">Sapiens by Yuval Noah Harari</a></li>
+        <li><a onclick="openModal('The Lean Startup by Eric Ries', 'A practical approach to building and scaling startups with agility.')">The Lean Startup by Eric Ries</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript for opening and closing the modal
+    function openModal(title, content) {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-content').innerText = content;
+      document.getElementById('modal').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
 </body>
 
 </html>
