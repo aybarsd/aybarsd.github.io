@@ -69,16 +69,16 @@
       color: var(--button-text-color);
     }
 
-     .content {
+    .content {
   display: flex;
-  align-items: baseline; /* Align the items to their baseline for text and image alignment */
+  align-items: flex-start; /* Keep the items aligned at the top */
   margin: 140px auto 0;
   max-width: 800px;
   padding: 20px;
   background-color: var(--header-bg);
   box-shadow: 0 2px 4px var(--box-shadow);
   border-radius: 8px;
-    }
+}
 
     .content_decons {
       display: flex;
@@ -105,11 +105,12 @@
     }
 
     .content img {
-      max-width: 150px;
-      margin-right: 20px;
-      border-radius: 8px;
-      align-self: flex-start;
-    }
+  max-width: 150px;
+  margin-right: 20px;
+  border-radius: 8px;
+  align-self: flex-start; /* Align the image to the top */
+  margin-top: 0; /* Remove any extra vertical margin */
+}
 
     .content .text {
       flex: 1;
