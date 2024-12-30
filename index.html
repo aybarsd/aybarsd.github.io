@@ -132,6 +132,8 @@
       transform-origin: center;
       width: 80%;
       max-width: 500px;
+      max-height: 80vh; /* Set a maximum height */
+      overflow-y: auto; /* Enable scrolling for content */
       background-color: var(--header-bg);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       border-radius: 8px;
@@ -198,9 +200,9 @@
     <div class="text">
       <p class="section-title">🧨 Deconstruction</p>
       <ul>
-        <li><a onclick="openModal('XX Live Ops Event Deconstruction', 'This is the content for Royal Match Live Ops Event Deconstruction.')">Royal Match Live Ops Event Deconstruction</a></li>
-        <li><a onclick="openModal('XX Strategy Breakdown', 'This is the content for Merge Mansion Strategy Breakdown.')">Merge Mansion Strategy Breakdown</a></li>
-        <li><a onclick="openModal('XX Economy Analysis', 'This is the content for Clash of Clans Economy Analysis.')">Clash of Clans Economy Analysis</a></li>
+        <li><a onclick="openModal('XX Live Ops Event Deconstruction', 'This is the content for Royal Match Live Ops Event Deconstruction.')">XX Live Ops Event Deconstruction</a></li>
+        <li><a onclick="openModal('XX Strategy Breakdown', 'This is the content for Merge Mansion Strategy Breakdown.')">XX Strategy Breakdown</a></li>
+        <li><a onclick="openModal('XX Economy Analysis', 'This is the content for Clash of Clans Economy Analysis.')">XX Economy Analysis</a></li>
       </ul>
     </div>
   </div>
@@ -263,6 +265,13 @@
       modal.classList.remove('show');
       overlay.classList.remove('show');
     }
+
+    // Close modal with ESC key
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
   </script>
 </body>
 
