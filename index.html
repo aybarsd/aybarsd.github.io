@@ -7,21 +7,32 @@
   <title>Aybars Doker</title>
   <link rel="icon" type="image/png" href="AD.png">
   <style>
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: #000;
+      --header-bg: #fff;
+      --link-color: #0073b1;
+      --box-shadow: rgba(0, 0, 0, 0.1);
+      --button-text-color: #000;
+    }
+
     body {
       font-family: Helvetica, Arial, sans-serif;
       margin: 100;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 
     .header {
       text-align: center;
       padding: 20px 0;
-      background-color: #fff;
+      background-color: var(--header-bg);
       position: fixed;
       width: 100%;
       top: 0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px var(--box-shadow);
+      z-index: 100;
     }
 
     h1 {
@@ -35,7 +46,7 @@
     }
 
     a {
-      color: #0073b1;
+      color: var(--link-color);
       text-decoration: none;
       font-weight: bold;
     }
@@ -44,14 +55,28 @@
       text-decoration: underline;
     }
 
+    .theme-switch {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      cursor: pointer;
+      padding: 10px;
+      background: var(--header-bg);
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px var(--box-shadow);
+      font-size: 0.9em;
+      color: var(--button-text-color);
+    }
+
     .content {
       display: flex;
       align-items: flex-start;
       margin: 140px auto 0;
       max-width: 800px;
       padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: var(--header-bg);
+      box-shadow: 0 2px 4px var(--box-shadow);
       border-radius: 8px;
     }
 
@@ -62,8 +87,8 @@
       margin: 10px auto 0;
       max-width: 800px;
       padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: var(--header-bg);
+      box-shadow: 0 2px 4px var(--box-shadow);
       border-radius: 8px;
     }
 
@@ -74,8 +99,8 @@
       margin: 10px auto 0;
       max-width: 800px;
       padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: var(--header-bg);
+      box-shadow: 0 2px 4px var(--box-shadow);
       border-radius: 8px;
     }
 
@@ -83,6 +108,7 @@
       max-width: 150px;
       margin-right: 20px;
       border-radius: 8px;
+      align-self: flex-start;
     }
 
     .content .text {
@@ -105,7 +131,7 @@
       transform: translate(-50%, -50%);
       width: 80%;
       max-width: 500px;
-      background-color: #fff;
+      background-color: var(--header-bg);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       border-radius: 8px;
       z-index: 1000;
@@ -126,7 +152,7 @@
       right: 15px;
       font-size: 1.5em;
       cursor: pointer;
-      color: #0073b1;
+      color: var(--link-color);
     }
 
     /* Overlay */
@@ -146,10 +172,11 @@
 <body>
   <div class="header">
     <h1>AYBARS DOKER</h1>
+    <button class="theme-switch" onclick="toggleTheme()">Toggle Dark Mode</button>
     <p><a href="mailto:aybarsdoker@gmail.com">aybarsdoker@gmail.com</a> | <a href="https://www.linkedin.com/in/aybarsdoker" target="_blank">linkedin.com/in/aybarsdoker</a></p>
   </div>
   <div class="content">
-    <img src="1721903822189.jpeg" alt="Professional Photo" style="align-self: flex-start;">
+    <img src="1721903822189.jpeg" alt="Professional Photo">
     <div class="text">
       <p>Hi, I’m Aybars. I’m a Mobile Game Producer with a degree in Electronics Engineering and 8 years of experience in product management. For the past 4 years, I’ve been focusing on the mobile gaming industry, striving to create fun and innovative experiences in the F2P world that are easily accessible to players worldwide.</p>
       <p>Personally, I’m someone who plays games whenever I get the chance. Thanks to my “professional deformation”, I often end up analyzing some games from an industry perspective rather than just enjoying them. On this page, I’d like to share my observations. These will be entirely subjective and based on my personal experiences.</p>
@@ -160,9 +187,9 @@
     <div class="text">
       <p class="section-title">🧨 Deconstruction</p>
       <ul>
-        <li><a onclick="openModal('XX LiveOps Event Deconstruction', 'This is the content for XX.')">XX</a></li>
-        <li><a onclick="openModal('XX LiveOps Strategy Breakdown', 'This is the content for XX.')">XX</a></li>
-        <li><a onclick="openModal('XX Economy Analysis', 'This is the content for XX.')">XX</a></li>
+        <li><a onclick="openModal('Royal Match Live Ops Event Deconstruction', 'This is the content for Royal Match Live Ops Event Deconstruction.')">Royal Match Live Ops Event Deconstruction</a></li>
+        <li><a onclick="openModal('Merge Mansion Strategy Breakdown', 'This is the content for Merge Mansion Strategy Breakdown.')">Merge Mansion Strategy Breakdown</a></li>
+        <li><a onclick="openModal('Clash of Clans Economy Analysis', 'This is the content for Clash of Clans Economy Analysis.')">Clash of Clans Economy Analysis</a></li>
       </ul>
     </div>
   </div>
@@ -187,7 +214,29 @@
   </div>
 
   <script>
-    // JavaScript for opening and closing the modal
+    function toggleTheme() {
+      const root = document.documentElement;
+      const button = document.querySelector('.theme-switch');
+
+      if (root.style.getPropertyValue('--bg-color') === '#f4f4f4') {
+        root.style.setProperty('--bg-color', '#121212');
+        root.style.setProperty('--text-color', '#ffffff');
+        root.style.setProperty('--header-bg', '#1e1e1e');
+        root.style.setProperty('--link-color', '#bb86fc');
+        root.style.setProperty('--box-shadow', 'rgba(0, 0, 0, 0.5)');
+        root.style.setProperty('--button-text-color', '#ffffff');
+        button.innerText = 'Toggle Light Mode';
+      } else {
+        root.style.setProperty('--bg-color', '#f4f4f4');
+        root.style.setProperty('--text-color', '#000000');
+        root.style.setProperty('--header-bg', '#ffffff');
+        root.style.setProperty('--link-color', '#0073b1');
+        root.style.setProperty('--box-shadow', 'rgba(0, 0, 0, 0.1)');
+        root.style.setProperty('--button-text-color', '#000000');
+        button.innerText = 'Toggle Dark Mode';
+      }
+    }
+
     function openModal(title, content) {
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-content').innerText = content;
