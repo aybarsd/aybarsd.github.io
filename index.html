@@ -72,15 +72,30 @@
     }
 
     .content {
-      display: flex;
-      align-items: flex-start;
-      margin: 140px auto 0;
-      max-width: 800px;
-      padding: 20px;
-      background-color: var(--header-bg);
-      box-shadow: 0 2px 4px var(--box-shadow);
-      border-radius: 8px;
-    }
+  display: flex;
+  align-items: flex-start; /* Aligns image with the first text line */
+  flex-direction: row;
+  margin: 140px auto 0;
+  max-width: 800px;
+  padding: 20px;
+  background-color: var(--header-bg);
+  box-shadow: 0 2px 4px var(--box-shadow);
+  border-radius: 8px;
+}
+
+.content img {
+ display: flex;
+  max-width: 200px;
+  margin-right: 20px;
+  border-radius: 8px;
+  flex-direction: row;
+  align-self: flex-start; /* Aligns image to match text baseline */
+  margin-left: 0px;
+  margin-right: 20px;
+  margin-top: 18px;
+  object-fit: cover;
+
+}
 
     .content_decons {
       display: flex;
@@ -106,16 +121,6 @@
       border-radius: 8px;
     }
 
-    .content img {
-      max-width: 150px;
-      margin-right: 20px;
-      border-radius: 8px;
-      align-self: flex-start;
-    }
-
-    .content .text {
-      flex: 1;
-    }
 
     .content .section-title {
       font-size: 1em;
@@ -187,7 +192,6 @@
 <body>
   <div class="header">
     <h1>AYBARS DOKER</h1>
- 
     <button class="theme-switch"onclick="toggleTheme()">Dark Mode</button>
 
 <style>
@@ -207,6 +211,7 @@
 </style>
     <p><a href="mailto:aybarsdoker@gmail.com">aybarsdoker@gmail.com</a> | <a href="https://www.linkedin.com/in/aybarsdoker" target="_blank">linkedin.com/in/aybarsdoker</a></p>
   </div>
+ 
   <div class="content">
     <img src="1721903822189.jpeg" alt="Professional Photo">
     <div class="text">
