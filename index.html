@@ -8,12 +8,13 @@
   <link rel="icon" type="image/png" href="AD.png">
   <style>
     :root {
-      --bg-color: #f4f4f4;
+      --bg-color: #4a4848;
       --text-color: #000;
       --header-bg: #fff;
       --link-color: #0073b1;
       --box-shadow: rgba(0, 0, 0, 0.1);
-      --button-text-color: #000;
+      --button-text-color: #ffffff;
+      --togglebutton-color: #c129b2;
     }
 
     body {
@@ -61,12 +62,13 @@
       right: 20px;
       cursor: pointer;
       padding: 10px;
-      background: var(--header-bg);
+      background: var(--togglebutton-color);
       border: none;
       border-radius: 5px;
       box-shadow: 0 2px 4px var(--box-shadow);
       font-size: 0.9em;
       color: var(--button-text-color);
+      font-weight: bold;
     }
 
     .content {
@@ -185,7 +187,24 @@
 <body>
   <div class="header">
     <h1>AYBARS DOKER</h1>
-    <button class="theme-switch" onclick="toggleTheme()">Toggle Dark Mode</button>
+ 
+    <button class="theme-switch"onclick="toggleTheme()">Dark Mode</button>
+
+<style>
+  .theme-switch {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    background-color: #0073b1;
+    color: white;
+    transition: background-color 0.5s ease-in-out;
+  }
+
+  .theme-switch:hover {
+    background: linear-gradient(to right,#0073b1, #ff4500 );
+  }
+</style>
     <p><a href="mailto:aybarsdoker@gmail.com">aybarsdoker@gmail.com</a> | <a href="https://www.linkedin.com/in/aybarsdoker" target="_blank">linkedin.com/in/aybarsdoker</a></p>
   </div>
   <div class="content">
@@ -241,7 +260,7 @@
     root.style.setProperty('--link-color', '#bb86fc');
     root.style.setProperty('--box-shadow', 'rgba(0, 0, 0, 0.5)');
     root.style.setProperty('--button-text-color', '#ffffff');
-    button.innerText = 'Toggle Light Mode';
+    button.innerText = 'Light Mode';
   } else {
     root.style.setProperty('--bg-color', '#f4f4f4');
     root.style.setProperty('--text-color', '#000000');
@@ -249,7 +268,7 @@
     root.style.setProperty('--link-color', '#0073b1');
     root.style.setProperty('--box-shadow', 'rgba(0, 0, 0, 0.1)');
     root.style.setProperty('--button-text-color', '#000000');
-    button.innerText = 'Toggle Dark Mode';
+    button.innerText = 'Dark Mode';
   }
 }
 
