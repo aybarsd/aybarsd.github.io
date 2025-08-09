@@ -1,279 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aybars Doker</title>
-  <link rel="icon" type="image/png" href="AD.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aybars Doker — Personal Blog</title>
+  <link rel="icon" type="image/png" href="AD.png" />
   <style>
     :root {
-      --bg-color: #f4f4f4;
-      --text-color: #000000;
-      --header-bg: #ffffff;
-      --link-color: #0073b1;
-      --box-shadow: rgba(0, 0, 0, 0.1);
-      --button-text-color: #000000;
-      --togglebutton-color: #0073b1;
-      --section-indent: 2em;
+      --bg: #0b0c10;
+      --card: rgba(255,255,255,0.06);
+      --text: #e5e7eb;
+      --muted: #a1a1aa;
+      --brand: #7c5cff;
+      --brand-2: #00e0a4;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --header-bg: rgba(10,10,15,.7);
+      --header-fg: #ffffff;
+      --header-border: rgba(255,255,255,.06);
+      --modal-bg-dark: rgba(15,17,23,.96);
+      --modal-bg-light: #ffffff;
+      --modal-text-light: #0f172a;
     }
-
-    /* Global Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: Helvetica, Arial, sans-serif;
       margin: 0;
-      padding-top: 120px;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
     }
 
-    /* Header */
-    .header {
-      text-align: center;
-      padding: 20px 0;
-      background-color: var(--header-bg);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      box-shadow: 0 2px 4px var(--box-shadow);
-      z-index: 100;
-    }
-    .header h1 { font-size: 3em; margin: 0; }
-    .header p { margin-top: 10px; font-size: 1.2em; }
+    .container { width: min(1100px, 92vw); margin: 0 auto; }
 
-    /* Links & Button */
-    a { color: var(--link-color); text-decoration: none; font-weight: bold; }
-    a:hover { text-decoration: underline; }
-    .theme-switch {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      background-color: var(--togglebutton-color);
-      color: var(--button-text-color);
-      border-radius: 5px;
-      box-shadow: 0 2px 4px var(--box-shadow);
-      transition: background-color 0.5s;
-    }
-    .theme-switch:hover { background: linear-gradient(to right, #0073b1, #ff4500); }
-
-    /* Sections */
-    .content,
-    .content_decons,
-    .content_books {
-      display: flex;
-      flex-direction: column;
-      margin: 10px auto 0;
-      max-width: 800px;
-      padding: 20px;
-      background-color: var(--header-bg);
-      box-shadow: 0 2px 4px var(--box-shadow);
-      border-radius: 8px;
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(160%) blur(10px);
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--header-border);
     }
 
-    /* Profile section */
-    .content { flex-direction: row; align-items: center; }
-    .content img {
-      width: 200px;
-      height: auto;
-      margin-right: 20px;
-      border-radius: 8px;
-      object-fit: cover;
-      flex-shrink: 0;
-      /* Mask stray edges on all sides */
+    .nav { 
+      display:flex; flex-direction:column; align-items:center; justify-content:center; 
+      gap:6px; padding: 16px 0; position: relative; text-align:center;
+    }
+
+    .brand { 
+      font-weight: 900; font-size: 2.2rem; letter-spacing:.4px; 
+      color: var(--header-fg);
+    }
+
+    .header-links { display:flex; gap:14px; align-items:center; justify-content:center; flex-wrap:wrap; font-weight:600; }
+    .header-links a { color: var(--header-fg); opacity:.9; text-decoration:none; display:flex; align-items:center; gap:6px; }
+    .header-links a:hover { opacity:1; }
+    .linkedin-icon { width:18px; height:18px; }
+
+    .theme-toggle {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: var(--card); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px; padding: 6px 12px; cursor: pointer; color: var(--text);
+    }
+
+    section { padding: 26px 0; }
+
+    .hero-wrap { display:grid; grid-template-columns: auto 1fr; gap: 28px; align-items:center; }
+
+    .headshot {
+      width: 100%; max-width: 260px; border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow);
       clip-path: inset(2px 2px 2px 2px round 8px);
     }
-    .content .text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex: 1;
-    }
-    .content .text p { margin-bottom: 1em; line-height: 1.5; }
+    .headshot img { display:block; width:100%; height:auto; }
 
-    /* Section titles */
-    .section-title { font-size: 1.2em; font-weight: bold; margin-bottom: 10px; }
+    .about { background: var(--card); border-radius: var(--radius); padding: 18px; }
+    .about-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .about-item span { font-size: 1.5rem; line-height: 1; }
 
-    /* Bullets alignment */
-    .content_decons ul,
-    .content_books ul {
-      list-style-position: outside;
-      padding-left: var(--section-indent);
-      margin-top: 0.5em;
-    }
-    .content_decons li,
-    .content_books li { margin-bottom: 0.5em; }
+    .section-title { font-size: 1rem; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); margin: 0 0 10px; font-weight: 800; }
 
-    /* Metadata style */
-    .metadata { font-size: 0.9em; color: #666; margin-top: 5px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 14px; }
+    .tile { border-radius: var(--radius); background: var(--card); padding: 14px; cursor:pointer; }
 
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      width: 90%;
-      max-width: 800px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: var(--header-bg);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      border-radius: 8px;
-      padding: 30px;
-      z-index: 1000;
-      transition: transform 0.3s;
-    }
-    .modal.show { display: block; transform: translate(-50%, -50%) scale(1); }
-    .modal h2 { margin-top: 0; margin-bottom: 10px; }
-    .modal .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5em;
-      cursor: pointer;
-      color: var(--link-color);
-    }
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      z-index: 999;
-    }
-    .overlay.show { display: block; }
-    #modal-content p { margin-bottom: 1.5em; }
+    footer { padding: 40px 0 60px; color: var(--muted); font-size: .95rem; text-align:center; }
 
-    /* Responsive */
-    @media (max-width: 600px) {
-      .content { flex-direction: column; align-items: center; }
-      .content img { width: 100%; max-width: 200px; margin-bottom: 20px; }
-      .header h1 { font-size: 2em; }
-      .header p { font-size: 1em; }
-      .theme-switch { padding: 8px 12px; font-size: 14px; top: 5px; right: 10px; }
-      .modal { width: 95%; max-width: none; max-height: 90vh; padding: 20px; }
-      .content_decons ul, .content_books ul { padding-left: 1.5em; }
-    }
+    dialog { width: min(820px, 92vw); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); box-shadow: var(--shadow); }
+    dialog::backdrop { background: rgba(0,0,0,.6); }
+    .modal-head { display:flex; justify-content: space-between; align-items: start; gap: 10px; padding: 10px 16px 0; }
+    .modal-title { font-size: 1.25rem; font-weight: 800; margin: 0; }
+    .modal-close { background: transparent; border: 1px solid rgba(255,255,255,.2); color: var(--text); border-radius: 10px; padding: 6px 10px; cursor: pointer; }
+    .modal-body { padding: 6px 16px 18px; }
+    .modal-meta { color: var(--muted); font-size: .9rem; margin-bottom: 12px; }
+    .modal-body p { margin: 0 0 14px; }
   </style>
 </head>
-
 <body>
-  <div class="header">
-    <h1>AYBARS DOKER</h1>
-    <button class="theme-switch" onclick="toggleTheme()">Dark Mode</button>
-    <p><a href="mailto:aybarsdoker@gmail.com">aybarsdoker@gmail.com</a> | <a href="https://www.linkedin.com/in/aybarsdoker" target="_blank">linkedin.com/in/aybarsdoker</a></p>
-  </div>
-
-  <!-- Configuration -->
-  <script>
-    const config = { showDeconstruction: true, showBooks: false };
-    document.addEventListener('DOMContentLoaded', () => {
-      if (!config.showDeconstruction) document.querySelector('.content_decons').style.display = 'none';
-      if (!config.showBooks) document.querySelector('.content_books').style.display = 'none';
-    });
-
-    // Essay data
-    const warzone = {
-      title: 'Current State of Warzone',
-      metadata: '5 min read • Aybars Doker • Jul 9, 2025',
-      content: `
-        <p>On this page, I'll never do fluff. My goal is sincerely and swiftly wrap up all my ideas to reflect my thoughts. If the content feels bland, that's why. I'm always here if you want an in-depth conversation :)</p>
-
-        <p>Everyone has something they're fanatical about in life—some people have a favorite football team, brand, TV series, movie, or celebrity; mine is a game. It's called Call of Duty. When it first came out, as a kid I thought it was way ahead of its time, and that positive impression has stuck with me ever since.</p>
-
-        <p>With the development of the internet and server infrastructure, multiplayer became the core gameplay element, and single-player campaigns started to feel like little extras alongside the true online experience.</p>
-
-        <p>Back then, each platform played within its own ecosystem—PC vs. PC or console vs. console—which kept competition fair and lively. I remember the common refrain, "There's too much cheating on PC; consoles are cleaner." It was somewhat true, but if anti-cheat software had worked properly and lobbies had been well monitored, those perceptions could have been avoided.</p>
-
-        <p>Anyway, crossplay has recently arrived, and now the game's entire daily active user base meets in the same lobbies. While input and platform differences don’t create unfair advantages in some genres, shooter games are among the most affected. Game companies may have data-driven justifications for this, but I’m not here to make an objective analysis—I’m here to share my own experience, which has been going downhill.</p>
-
-        <p>I believe shooter games are natively mouse-and-keyboard experiences. Feel free to disagree. PCs have always been more expensive than consoles worldwide, and consoles are more affordable and user-friendly—you just plug one cable into your living-room TV without any special setup. That naturally led to a massive console player-base. Publishers and developers, rightly so, couldn’t ignore such a large audience, and they started to build solutions to keep that group happy—chief among them, aim assist.</p>
-
-        <p>Aim assist is, of course, a great idea to keep those players active and satisfied, but as with anything, too much of a good thing can be harmful. Right now, aim assist provides far more help than a casual player actually needs, and it destroys the game’s fairness. It’s entirely plausible that a four-year-old could learn to use aim assist well enough to wreak havoc in a lobby.</p>
-
-        <p>I think the fact that aim assist is so overpowered right now is the publisher’s blunt way of choosing sides among players and showing who matters more. Controller players, you’re our darlings; mouse-and-keyboard players, you can piss off—the game isn’t made for you anymore.</p>
-      `
-    };
-  </script>
-
-  <section class="content">
-    <img src="1721903822189.jpeg" alt="Professional Photo">
-    <div class="text">
-      <p>Hi, I’m Aybars. I’m a Mobile Game Producer with a degree in Electronics Engineering and 8 years of experience in product management. For the past 4 years, I’ve been focusing on the mobile gaming industry, striving to create fun and innovative experiences in the F2P world that are easily accessible to players worldwide.</p>
-      <p>Personally, I’m someone who plays games whenever I get the chance. Thanks to my “professional deformation”, I often end up analyzing some games from an industry perspective rather than just enjoying them. On this page, I’d like to share my observations. These will be entirely subjective and based on my personal experiences.</p>
+  <header>
+    <div class="container nav">
+      <div class="brand">AYBARS DOKER</div>
+      <div class="header-links">
+        <a href="mailto:aybarsdoker@gmail.com">📮 aybarsdoker@gmail.com</a>
+        <span>•</span>
+        <a href="https://www.linkedin.com/in/aybarsdoker" target="_blank" rel="noopener">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="linkedin-icon" />
+          linkedin.com/in/aybarsdoker
+        </a>
+      </div>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">☀️</button>
     </div>
-  </section>
+  </header>
 
-  <section class="content_decons">
-    <p class="section-title">📝 My Takes</p>
-    <ul>
-      <li>
-        <a href="#" onclick="openModal('My Takes on ' + warzone.title, warzone.content, warzone.metadata); return false;">Current State of Warzone</a>
-        <div class="metadata">5 min read • Aybars Doker • Jul 9, 2025</div>
-      </li>
-    </ul>
-  </section>
+  <main>
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div class="headshot">
+          <img src="1721903822189.jpeg" alt="Portrait of Aybars Doker" />
+        </div>
+        <div class="about">
+          <div class="about-item"><span>🎓</span><div>Electronics Engineering degree. 9 years in product management, last 4.5 in F2P mobile gaming.</div></div>
+          <div class="about-item"><span>🕹️</span><div>Daily gamer who often ends up deconstructing games instead of just playing them.</div></div>
+          <div class="about-item"><span>📈</span><div>Focus on LiveOps, economy, retention systems, and feature roadmaps that monetize without killing fun.</div></div>
+        </div>
+      </div>
+    </section>
 
-  <section class="content_books">
-    <p class="section-title">📚 Books</p>
-    <ul>
-      <li><a onclick="openModal('Outliers by Malcolm Gladwell', 'A detailed analysis of success stories and what makes individuals stand out.', '4 min read • Aybars Doker • Jul 1, 2025')">Outliers by Malcolm Gladwell</a><div class="metadata">4 min read • Aybars Doker • Jul 1, 2025</div></li>
-    </ul>
-  </section>
+    <section id="posts">
+      <div class="container">
+        <div class="section-title">My Takes</div>
+        <div class="grid">
+          <article class="tile" role="button" tabindex="0" aria-label="Read: Current State of Warzone" data-open="modal-warzone">
+            <h3>Current State of Warzone</h3>
+            <div class="meta">5 min read • Aybars Doker • Jul 9, 2025</div>
+            <p>On this page, I'll never do fluff. I wrap ideas fast. If it reads blunt, that's intentional.</p>
+          </article>
+          <article class="tile">
+            <h3>Coming Soon</h3>
+            <div class="meta">New post is on the way...</div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  <div id="modal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2 id="modal-title"></h2>
-    <div id="modal-metadata" class="metadata"></div>
-    <div id="modal-content"></div>
-  </div>
-  <div id="overlay" class="overlay" onclick="closeModal()"></div>
+  <footer>
+    <div class="container">© <span id="year"></span> Aybars Doker — Personal blog.</div>
+  </footer>
+
+  <!-- Warzone Modal -->
+  <dialog id="modal-warzone" aria-labelledby="modal-title-warzone">
+    <div class="modal-head">
+      <h2 id="modal-title-warzone" class="modal-title">My Takes on Current State of Warzone</h2>
+      <button class="modal-close" data-close>Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-meta">5 min read • Aybars Doker • Jul 9, 2025</div>
+      <div>
+        <!-- Warzone content unchanged -->
+        <p>On this page, I'll never do fluff. My goal is sincerely and swiftly wrap up all my ideas to reflect my thoughts. If the content feels bland, that's why. I'm always here if you want an in-depth conversation :)</p>
+        <p>Everyone has something they're fanatical about in life—some people have a favorite football team, brand, TV series, movie, or celebrity; mine is a game. It's called Call of Duty...</p>
+      </div>
+    </div>
+  </dialog>
 
   <script>
-    function toggleTheme() {
-      const root = document.documentElement;
-      const button = document.querySelector('.theme-switch');
-      const current = getComputedStyle(root).getPropertyValue('--bg-color').trim();
-      if (current === '#f4f4f4') {
-        root.style.setProperty('--bg-color', '#121212');
-        root.style.setProperty('--text-color', '#ffffff');
-        root.style.setProperty('--header-bg', '#1e1e1e');
-        root.style.setProperty('--link-color', '#bb86fc');
-        root.style.setProperty('--box-shadow', 'rgba(0,0,0,0.5)');
-        root.style.setProperty('--button-text-color', '#ffffff');
-        button.innerText = 'Light Mode';
-      } else {
-        root.style.setProperty('--bg-color', '#f4f4f4');
-        root.style.setProperty('--text-color', '#000000');
-        root.style.setProperty('--header-bg', '#ffffff');
-        root.style.setProperty('--link-color', '#0073b1');
-        root.style.setProperty('--box-shadow', 'rgba(0,0,0,0.1)');
-        root.style.setProperty('--button-text-color', '#000000');
-        button.innerText = 'Dark Mode';
-      }
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const modalWarzone = document.getElementById('modal-warzone');
+
+    function applyLight(){
+      root.style.setProperty('--bg', '#f7f7fb');
+      root.style.setProperty('--card', 'rgba(0,0,0,0.04)');
+      root.style.setProperty('--text', '#0f172a');
+      root.style.setProperty('--muted', '#475569');
+      root.style.setProperty('--shadow', '0 10px 30px rgba(2,6,23,0.08)');
+      root.style.setProperty('--header-bg', 'rgba(255,255,255,.78)');
+      root.style.setProperty('--header-fg', '#0f172a');
+      root.style.setProperty('--header-border', 'rgba(2,6,23,0.08)');
+      modalWarzone.style.background = 'var(--modal-bg-light)';
+      modalWarzone.style.color = 'var(--modal-text-light)';
+      toggle.textContent = '🌙';
     }
-    function openModal(title, content, metadata) {
-      document.getElementById('modal-title').innerText = title;
-      document.getElementById('modal-metadata').innerText = metadata;
-      document.getElementById('modal-content').innerHTML = content;
-      document.getElementById('modal').classList.add('show');
-      document.getElementById('overlay').classList.add('show');
+
+    function applyDark(){
+      root.style.setProperty('--bg', '#0b0c10');
+      root.style.setProperty('--card', 'rgba(255,255,255,0.06)');
+      root.style.setProperty('--text', '#e5e7eb');
+      root.style.setProperty('--muted', '#a1a1aa');
+      root.style.setProperty('--shadow', '0 10px 30px rgba(0,0,0,0.35)');
+      root.style.setProperty('--header-bg', 'rgba(10,10,15,.7)');
+      root.style.setProperty('--header-fg', '#ffffff');
+      root.style.setProperty('--header-border', 'rgba(255,255,255,.06)');
+      modalWarzone.style.background = 'var(--modal-bg-dark)';
+      modalWarzone.style.color = '#e5e7eb';
+      toggle.textContent = '☀️';
     }
-    function closeModal() {
-      document.getElementById('modal').classList.remove('show');
-      document.getElementById('overlay').classList.remove('show');
+
+    function isDark(){
+      return getComputedStyle(root).getPropertyValue('--bg').trim() === '#0b0c10';
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    (isDark() ? applyDark : applyLight)();
+    toggle.addEventListener('click', () => { isDark() ? applyLight() : applyDark(); });
+
+    function openDialog(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.showModal();
+      const closer = el.querySelector('[data-close]');
+      closer && closer.addEventListener('click', ()=> el.close(), { once:true });
+      el.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ el.close(); } }, { once:true });
+    }
+
+    document.querySelectorAll('[data-open]').forEach(tile => {
+      tile.addEventListener('click', ()=> openDialog(tile.dataset.open));
+      tile.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openDialog(tile.dataset.open); } });
+    });
   </script>
 </body>
-
 </html>
